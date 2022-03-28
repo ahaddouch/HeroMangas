@@ -121,6 +121,51 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnNew.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAHQAAAAnCAYAAADegGx+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACISURBVHhe7dExEYAwAMDAKqll8FcZ7AUEYIDcDz9lzJjn
+        XvO8bwr2eod+Bf7K0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhD
+        YwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTRmzGNfX4EfOvb1AFxGOexR3Q2vAAAAAElFTkSu
+        QmCC
+</value>
+  </data>
+  <data name="btnMod.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAHQAAAAnCAYAAADegGx+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACISURBVHhe7dExEYAwAMDAKqll8FcZ7AUEYIDcDz9lzJjn
+        XvO8bwr2eod+Bf7K0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhD
+        YwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTRmzGNfX4EfOvb1AFxGOexR3Q2vAAAAAElFTkSu
+        QmCC
+</value>
+  </data>
+  <data name="btnDel.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAHQAAAAnCAYAAADegGx+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACISURBVHhe7dExEYAwAMDAKqll8FcZ7AUEYIDcDz9lzJjn
+        XvO8bwr2eod+Bf7K0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhD
+        YwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTRmzGNfX4EfOvb1AFxGOexR3Q2vAAAAAElFTkSu
+        QmCC
+</value>
+  </data>
+  <data name="btnCancel.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAHQAAAAnCAYAAADegGx+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACISURBVHhe7dExEYAwAMDAKqll8FcZ7AUEYIDcDz9lzJjn
+        XvO8bwr2eod+Bf7K0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhD
+        YwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTRmzGNfX4EfOvb1AFxGOexR3Q2vAAAAAElFTkSu
+        QmCC
+</value>
+  </data>
+  <data name="btnSave.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAHQAAAAnCAYAAADegGx+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACISURBVHhe7dExEYAwAMDAKqll8FcZ7AUEYIDcDz9lzJjn
+        XvO8bwr2eod+Bf7K0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhD
+        YwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTRmzGNfX4EfOvb1AFxGOexR3Q2vAAAAAElFTkSu
+        QmCC
+</value>
+  </data>
   <data name="btnPictur.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAMEAAAAnCAYAAAC2XywDAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -157,51 +202,6 @@
         CAIQQQAiCEAEAYggABEEIIIARBCACAIQQQAiCEAEAYggABEEIIIARBCACAIQQQAiCEAEAYggABEEIIIA
         RBCACAIQQQAiCEAEAYggABEEIIIARBCACAIQQQAiCEAEAYggABEEIIIARBCACAIQQQDyCsLzPN99mNmd
         2w04OQDYxvgDNLFihBiPCioAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btnCancel.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAHQAAAAnCAYAAADegGx+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACISURBVHhe7dExEYAwAMDAKqll8FcZ7AUEYIDcDz9lzJjn
-        XvO8bwr2eod+Bf7K0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhD
-        YwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTRmzGNfX4EfOvb1AFxGOexR3Q2vAAAAAElFTkSu
-        QmCC
-</value>
-  </data>
-  <data name="btnSave.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAHQAAAAnCAYAAADegGx+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACISURBVHhe7dExEYAwAMDAKqll8FcZ7AUEYIDcDz9lzJjn
-        XvO8bwr2eod+Bf7K0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhD
-        YwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTRmzGNfX4EfOvb1AFxGOexR3Q2vAAAAAElFTkSu
-        QmCC
-</value>
-  </data>
-  <data name="btnNew.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAHQAAAAnCAYAAADegGx+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACISURBVHhe7dExEYAwAMDAKqll8FcZ7AUEYIDcDz9lzJjn
-        XvO8bwr2eod+Bf7K0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhD
-        YwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTRmzGNfX4EfOvb1AFxGOexR3Q2vAAAAAElFTkSu
-        QmCC
-</value>
-  </data>
-  <data name="btnMod.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAHQAAAAnCAYAAADegGx+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACISURBVHhe7dExEYAwAMDAKqll8FcZ7AUEYIDcDz9lzJjn
-        XvO8bwr2eod+Bf7K0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhD
-        YwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTRmzGNfX4EfOvb1AFxGOexR3Q2vAAAAAElFTkSu
-        QmCC
-</value>
-  </data>
-  <data name="btnDel.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAHQAAAAnCAYAAADegGx+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACISURBVHhe7dExEYAwAMDAKqll8FcZ7AUEYIDcDz9lzJjn
-        XvO8bwr2eod+Bf7K0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhD
-        YwyNMTTG0BhDYwyNMTTG0BhDYwyNMTTG0BhDYwyNMTRmzGNfX4EfOvb1AFxGOexR3Q2vAAAAAElFTkSu
-        QmCC
 </value>
   </data>
 </root>

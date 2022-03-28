@@ -21,11 +21,11 @@ namespace MangaReader
         {
             InitializeComponent();
         }
-        public MangaItem(string descreption ,string titel,byte[] pic)
+        public MangaItem(string auteur ,string titel,byte[] pic)
         {
             InitializeComponent();
             lbTitle.Text = titel;
-            lbDescreption.Text = descreption;
+            lbAuteur.Text = auteur;
             MemoryStream ms = new MemoryStream(pic);
             pictur.Image = Image.FromStream(ms);
             Titel = titel;

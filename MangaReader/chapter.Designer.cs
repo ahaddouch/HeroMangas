@@ -80,9 +80,9 @@ namespace MangaReader
             this.Controls.Add(this.lbTitel);
             this.Controls.Add(this.lbNumber);
             this.Font = new System.Drawing.Font("Modern No. 20", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "chapter";
-            this.Size = new System.Drawing.Size(316, 56);
+            this.Size = new System.Drawing.Size(447, 56);
             this.Load += new System.EventHandler(this.chapter_Load);
             this.Click += new System.EventHandler(this.chapter_Click);
             this.ResumeLayout(false);

@@ -74,7 +74,7 @@ namespace MangaReader
 
             SqlDataReader dr = com.ExecuteReader();
             while (dr.Read())
-                flp.Controls.Add(new MangaItem(dr[2].ToString(), dr[1].ToString(), (byte[])dr[3]));
+                flp.Controls.Add(new MangaItem(dr[5].ToString(), dr[1].ToString(), (byte[])dr[3]));
             sc.Close();
             dr.Close();
             dr = null;

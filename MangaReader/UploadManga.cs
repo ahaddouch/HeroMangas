@@ -12,11 +12,46 @@ using System.Configuration;
 using System.IO;
 using Syncfusion.Windows.Forms.Tools;
 using Syncfusion.Windows.Forms;
+using System.Security.Cryptography;
 namespace MangaReader
 {
     public partial class UploadManga : Form
     {
-        readonly string cs = @"Data Source=ADAM\SQL;Initial Catalog=HeroManga;User ID=sa;Password=123456";
+        public byte[] cle = System.Convert.FromBase64String("12UCgcnHy8LHoN/VodosrUVgv+r+kQ5e");
+        public byte[] iv = System.Convert.FromBase64String("AsJNO9N/4dM=");
+        SqlConnection getsc()
+        {
+            string cs = ConfigurationManager.ConnectionStrings["HeroMangaConnection"].ConnectionString;
+            string cs1 = DecryptSym(Convert.FromBase64String(cs), cle, iv);
+
+            return new SqlConnection(DecryptSym(Convert.FromBase64String(cs), cle, iv));
+        }
+
+
+        public string DecryptSym(byte[] cryptedTextAsByte, byte[] key, byte[] iv)
+        {
+            TripleDESCryptoServiceProvider TDES = new TripleDESCryptoServiceProvider();
+
+            // Cet objet est utilisé pour déchiffrer les données.
+            // Il reçoit les données chiffrées sous la forme d'un tableau de bytes.
+            // Les données déchiffrées sont également retournées sous la forme d'un tableau de bytes
+            var decryptor = TDES.CreateDecryptor(key, iv);
+
+            byte[] decryptedTextAsByte = decryptor.TransformFinalBlock(cryptedTextAsByte, 0, cryptedTextAsByte.Length);
+
+            return Encoding.Default.GetString(decryptedTextAsByte);
+        }
+        static public string hash(string chaine)
+        {
+            byte[] textAsByte = Encoding.Default.GetBytes(chaine);
+
+            SHA512 sha512 = SHA512Cng.Create();
+
+            byte[] hash = sha512.ComputeHash(textAsByte);
+
+            return Convert.ToBase64String(hash);
+
+        }
         bool isAdd, isMod, isDel = false;
         private DataSet dtSet;
         public UploadManga()
@@ -81,7 +116,7 @@ namespace MangaReader
         }
         void getManga()
         {
-            SqlConnection sc = new SqlConnection(cs);
+            SqlConnection sc = getsc();
             sc.Open();
             SqlCommand com = new SqlCommand("select * from manga", sc);
             SqlDataReader dr = com.ExecuteReader();
@@ -99,7 +134,7 @@ namespace MangaReader
         {
             if (lstmanga.SelectedIndex != -1)
             {
-                SqlConnection sc1 = new SqlConnection(cs);
+                SqlConnection sc1 = getsc();
                 sc1.Open();
                 SqlCommand com3 = new SqlCommand(string.Format("select * from manga where id_manga ={0}", lstmanga.SelectedValue), sc1);
                 SqlDataReader dr1 = com3.ExecuteReader();
@@ -119,7 +154,7 @@ namespace MangaReader
                 }
                 dr1.Close();
                 sc1.Close();
-                SqlConnection sc2 = new SqlConnection(cs);
+                SqlConnection sc2 = getsc();
                 sc2.Open();
                 SqlCommand com4 = new SqlCommand(string.Format("select * from genre where id_manga ={0}", lstmanga.SelectedValue), sc2);
                 SqlDataReader dr2 = com4.ExecuteReader();
@@ -182,7 +217,7 @@ namespace MangaReader
 
                 else
                 {
-                    using (SqlConnection cn = new SqlConnection(cs))
+                    using (SqlConnection cn = getsc())
                     {
 
                         cn.Open();
@@ -193,7 +228,7 @@ namespace MangaReader
                         cmd.Parameters.AddWithValue("@dateP", Convert.ToInt32(lstYear.SelectedItem.ToString()));
                         cmd.Parameters.AddWithValue("@auteur", txtAuthor.Text);
                         cmd.Parameters.AddWithValue("@type", lstType.SelectedItem.ToString());
-                        cmd.Parameters.AddWithValue("@ageG", lstYear.SelectedItem.ToString());
+                        cmd.Parameters.AddWithValue("@ageG", lstAge.SelectedItem.ToString());
                         cmd.ExecuteNonQuery();
                         getManga();
                         lstmanga.SelectedIndex = lstmanga.Items.Count -1;
@@ -216,7 +251,7 @@ namespace MangaReader
                         cn.Close();
                         MessageBox.Show("Manga add Successfully");
                     }
-                    SqlConnection sc = new SqlConnection(cs);
+                    SqlConnection sc = getsc();
                     sc.Open();
                     foreach (string i in clbGenre.SelectedItems)
                     {
@@ -234,7 +269,7 @@ namespace MangaReader
             } 
             else if(isMod)
             {
-                using (SqlConnection cn = new SqlConnection(cs))
+                using (SqlConnection cn = getsc())
                 {
                     cn.Open();
                     SqlCommand cmd = new SqlCommand("UPDATE MANGA SET name_manga='@name_manga',descreption='@descreption',pictur='@pictur',dateP='@dateP',auteur='@auteur',type='@type',ageG='@ageG' WHERE id_manga='@id_manga'", cn);
@@ -249,7 +284,7 @@ namespace MangaReader
                     cmd.ExecuteNonQuery();
 
 
-                    SqlConnection connection = new SqlConnection(@"Data Source=ADAM\SQL;Initial Catalog=HeroManga;User ID=sa;Password=123456");
+                    SqlConnection connection = getsc();
                     string sqlStatement = "DELETE FROM genre WHERE id_maga = @id_maga";
                     try
                     {
@@ -286,9 +321,9 @@ namespace MangaReader
             else if (isDel)
             {
 
-                if (MessageBox.Show("Are you ok about deleting this item ?", "DELETE", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                if (MessageBox.Show("Are you ok about deleting this manga ?", "DELETE MANGA", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
-                    SqlConnection sc = new SqlConnection(@"Data Source=ADAM\SQL;Initial Catalog=HeroManga;User ID=sa;Password=123456");
+                    SqlConnection sc = getsc();
                     sc.Open();
                     SqlCommand com = new SqlCommand("delete from manga where id_manga =@id_manga" , sc);
                     com.Parameters.AddWithValue("@id_manga", Convert.ToInt32(lstmanga.SelectedValue.ToString()) );
@@ -330,6 +365,11 @@ namespace MangaReader
         private void checkedListBox1_MouseHover(object sender, EventArgs e)
         {
             clbGenre.Height = clbGenre.MaximumSize.Height;
+        }
+
+        private void clbGenre_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void checkedListBox1_MouseLeave(object sender, EventArgs e)
@@ -402,7 +442,7 @@ namespace MangaReader
             lstAge.Items.AddRange(age);
             string[] type = new string[] { "Manga(JP)", "Manhwa(KR)", "Manhua(CN)" };
             lstType.Items.AddRange(type);
-            string[] genre = new string[] { "remance", "action", "love" };
+            string[] genre = new string[] { "martial art ", "action", "advantur","drama" };
             clbGenre.Items.AddRange(genre);
             lstYear.SelectedItem = 2022;
             //CreateGenreTable();

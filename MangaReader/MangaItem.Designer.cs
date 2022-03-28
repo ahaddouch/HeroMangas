@@ -28,29 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbDescreption = new System.Windows.Forms.Label();
+            this.lbAuteur = new System.Windows.Forms.Label();
             this.lbTitle = new System.Windows.Forms.Label();
             this.pictur = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictur)).BeginInit();
             this.SuspendLayout();
             // 
-            // lbDescreption
+            // lbAuteur
             // 
-            this.lbDescreption.AutoSize = true;
-            this.lbDescreption.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F);
-            this.lbDescreption.Location = new System.Drawing.Point(155, 60);
-            this.lbDescreption.Name = "lbDescreption";
-            this.lbDescreption.Size = new System.Drawing.Size(128, 26);
-            this.lbDescreption.TabIndex = 1;
-            this.lbDescreption.Text = "Descreption";
+            this.lbAuteur.AutoSize = true;
+            this.lbAuteur.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F);
+            this.lbAuteur.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lbAuteur.Location = new System.Drawing.Point(155, 51);
+            this.lbAuteur.Name = "lbAuteur";
+            this.lbAuteur.Size = new System.Drawing.Size(128, 26);
+            this.lbAuteur.TabIndex = 1;
+            this.lbAuteur.Text = "Descreption";
             // 
             // lbTitle
             // 
             this.lbTitle.AutoSize = true;
-            this.lbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F);
+            this.lbTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(121)))), ((int)(((byte)(141)))));
+            this.lbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTitle.ForeColor = System.Drawing.Color.White;
             this.lbTitle.Location = new System.Drawing.Point(155, 13);
             this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(52, 26);
+            this.lbTitle.Size = new System.Drawing.Size(71, 33);
             this.lbTitle.TabIndex = 1;
             this.lbTitle.Text = "Title";
             // 
@@ -59,7 +62,7 @@
             this.pictur.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pictur.Location = new System.Drawing.Point(0, 0);
             this.pictur.Name = "pictur";
-            this.pictur.Size = new System.Drawing.Size(101, 112);
+            this.pictur.Size = new System.Drawing.Size(101, 122);
             this.pictur.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictur.TabIndex = 0;
             this.pictur.TabStop = false;
@@ -70,10 +73,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(117)))), ((int)(((byte)(121)))), ((int)(((byte)(141)))));
             this.Controls.Add(this.lbTitle);
-            this.Controls.Add(this.lbDescreption);
+            this.Controls.Add(this.lbAuteur);
             this.Controls.Add(this.pictur);
             this.Name = "MangaItem";
-            this.Size = new System.Drawing.Size(442, 112);
+            this.Size = new System.Drawing.Size(442, 122);
             this.Load += new System.EventHandler(this.MangaItem_Load);
             this.Click += new System.EventHandler(this.MangaItem_Click);
             ((System.ComponentModel.ISupportInitialize)(this.pictur)).EndInit();
@@ -85,7 +88,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictur;
-        private System.Windows.Forms.Label lbDescreption;
+        private System.Windows.Forms.Label lbAuteur;
         private System.Windows.Forms.Label lbTitle;
     }
 }

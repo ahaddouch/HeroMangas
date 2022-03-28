@@ -19,20 +19,20 @@ namespace MangaReader
 {
     public partial class LogIn : Form
     {
-       
+
         public LogIn()
         {
             InitializeComponent();
         }
 
-        
+
         public byte[] cle = System.Convert.FromBase64String("12UCgcnHy8LHoN/VodosrUVgv+r+kQ5e");
         public byte[] iv = System.Convert.FromBase64String("AsJNO9N/4dM=");
         SqlConnection getsc()
         {
             string cs = ConfigurationManager.ConnectionStrings["HeroMangaConnection"].ConnectionString;
             string cs1 = DecryptSym(Convert.FromBase64String(cs), cle, iv);
-            
+
             return new SqlConnection(DecryptSym(Convert.FromBase64String(cs), cle, iv));
         }
 
@@ -66,11 +66,11 @@ namespace MangaReader
         bool isSingIn = false;
         private void button1_Click(object sender, EventArgs e)
         {
-           MenuTimer.Start();
+            MenuTimer.Start();
             mainTimer.Start();
-            
+
         }
-        
+
 
         private void mainTimer_Tick(object sender, EventArgs e)
         {
@@ -101,7 +101,7 @@ namespace MangaReader
             }
         }
 
-       
+
 
         private void MenuTimer_Tick(object sender, EventArgs e)
         {
@@ -129,7 +129,7 @@ namespace MangaReader
                     lb2.Text = "And start reading with us";
 
                 }
-                if (menu.Location.X.ToString()=="760")
+                if (menu.Location.X.ToString() == "760")
                 {
                     MenuExpand = false;
                     MenuTimer.Stop();
@@ -169,16 +169,16 @@ namespace MangaReader
             btnmain.IdleBorderRadius = 30;
             txtmail.PlaceholderText = "Email";
             txtpassword.PlaceholderText = "Password";
-            
+
             txtuser.PlaceholderText = "Name";
-            
+
         }
 
-        
+
 
         private void btnmain_Click(object sender, EventArgs e)
         {
-            if (isSingIn) 
+            if (isSingIn)
             {
                 string role = "";
                 SqlConnection sc = getsc();
@@ -194,7 +194,7 @@ namespace MangaReader
                 }
                 if (role != string.Empty)
                 {
-                    
+
                     this.Hide();
                     HomeForm f = new HomeForm(role);
                     f.ShowDialog();
@@ -210,15 +210,56 @@ namespace MangaReader
             }
             else
             {
-                
+                using (SqlConnection cn = getsc())
+                {
+
+                    cn.Open();
+                    SqlCommand cmd = new SqlCommand("insert into manga_user(name,email,password,role) values(@name,@email,@password,@role)", cn);
+                    cmd.Parameters.AddWithValue("@name", txtuser.Text);
+                    cmd.Parameters.AddWithValue("@email", txtmail.Text);
+                    cmd.Parameters.AddWithValue("@password", txtpassword.Text);
+                    cmd.Parameters.AddWithValue("@role", "admin");
+
+                    cmd.ExecuteNonQuery();
+                    
+
+
+
+                    cn.Close();
+
+                }
+                string role = "";
+                SqlConnection sc = getsc();
+                sc.Open();
+                SqlCommand com = new SqlCommand(string.Format("select * from manga_user where name ='{0}'", txtuser.Text), sc);
+                SqlDataReader dr = com.ExecuteReader();
+                while (dr.Read())
+                {
+                    if (dr["password"].ToString() == hash(txtpassword.Text))
+                    {
+                        role = dr["role"].ToString();
+                    }
+                }
+                if (role != string.Empty)
+                {
+
+                    this.Hide();
+                    HomeForm f = new HomeForm(role);
+                    f.ShowDialog();
+                    this.Close();
+                    //this.Show();
+                }
+                else
+                    MessageBox.Show("Name or password is incorrect", "login error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                sc.Close();
+                dr.Close();
+                dr = null;
+
+
             }
 
 
-        }
-
-        private void bunifuButton1_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

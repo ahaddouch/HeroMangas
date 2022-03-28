@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Security.Cryptography;
 
 namespace MangaReader
 {
@@ -20,7 +21,41 @@ namespace MangaReader
             InitializeComponent();
         }
         bool isAdd, isMod, isDel = false;
-        string cs = @"Data Source=ADAM\SQL;Initial Catalog=HeroManga;User ID=sa;Password=123456";
+        public byte[] cle = System.Convert.FromBase64String("12UCgcnHy8LHoN/VodosrUVgv+r+kQ5e");
+        public byte[] iv = System.Convert.FromBase64String("AsJNO9N/4dM=");
+        SqlConnection getsc()
+        {
+            string cs = ConfigurationManager.ConnectionStrings["HeroMangaConnection"].ConnectionString;
+            string cs1 = DecryptSym(Convert.FromBase64String(cs), cle, iv);
+
+            return new SqlConnection(DecryptSym(Convert.FromBase64String(cs), cle, iv));
+        }
+
+
+        public string DecryptSym(byte[] cryptedTextAsByte, byte[] key, byte[] iv)
+        {
+            TripleDESCryptoServiceProvider TDES = new TripleDESCryptoServiceProvider();
+
+            // Cet objet est utilisé pour déchiffrer les données.
+            // Il reçoit les données chiffrées sous la forme d'un tableau de bytes.
+            // Les données déchiffrées sont également retournées sous la forme d'un tableau de bytes
+            var decryptor = TDES.CreateDecryptor(key, iv);
+
+            byte[] decryptedTextAsByte = decryptor.TransformFinalBlock(cryptedTextAsByte, 0, cryptedTextAsByte.Length);
+
+            return Encoding.Default.GetString(decryptedTextAsByte);
+        }
+        static public string hash(string chaine)
+        {
+            byte[] textAsByte = Encoding.Default.GetBytes(chaine);
+
+            SHA512 sha512 = SHA512Cng.Create();
+
+            byte[] hash = sha512.ComputeHash(textAsByte);
+
+            return Convert.ToBase64String(hash);
+
+        }
         private void DesEnb()
         {
 
@@ -39,13 +74,13 @@ namespace MangaReader
                 txtNumber.Show();
 
 
+                pnlSelect.Show();
+                pnlChapter.Show();
+                pnlSave.Show();
 
-                pnlSelect.Hide();
-                pnlChapter.Hide();
-                pnlSave.Hide();
-                
+                btn_images.Show();
 
-               
+
 
             }
 
@@ -57,7 +92,7 @@ namespace MangaReader
                 cbChapter.Show();
                 txtNumber.Hide();
 
-
+                btn_images.Show();
             }
 
             else if (isDel)
@@ -71,6 +106,7 @@ namespace MangaReader
                 pnlSelect.Show();
                 pnlChapter.Show();
                 pnlSave.Show();
+               
             }
             else
             {
@@ -80,10 +116,11 @@ namespace MangaReader
 
                 cbChapter.Show();
                 txtNumber.Hide();
+                pnlSelect.Hide();
+                pnlChapter.Hide();
+                pnlSave.Hide();
+                txtIdChapter.Hide();
 
-                pnlSelect.Show();
-                pnlChapter.Show();
-                pnlSave.Show();
             }
         }
 
@@ -105,7 +142,7 @@ namespace MangaReader
                         ImageConverter Converter = new ImageConverter();
                         var imageConvert = Converter.ConvertTo(image, typeof(byte[]));
                         listBox2.Items.Add(imageConvert);   
-                        imageList1.Images.Add(image);
+                       
                         PictureBox pb = new PictureBox();
                         pb.Height = 300;
                         pb.Width = 240;
@@ -132,7 +169,7 @@ namespace MangaReader
             {
                 //ImageConverter Converter = new ImageConverter();
                 //var imageConvert = Converter.ConvertTo(i, typeof(byte[]));
-                using (SqlConnection sc = new SqlConnection(cs))
+                using (SqlConnection sc = getsc())
                 {
                     sc.Open();
                     SqlCommand cmd = new SqlCommand("Insert into image(id_chapter,img)  values (@id_chapter,@img)", sc);
@@ -153,7 +190,7 @@ namespace MangaReader
 
         void getManga()
         {
-            SqlConnection sc = new SqlConnection(cs);
+            SqlConnection sc = getsc();
             sc.Open();
             SqlCommand com = new SqlCommand("select * from manga", sc);
             SqlDataReader dr = com.ExecuteReader();
@@ -169,7 +206,7 @@ namespace MangaReader
 
         void addChapter()
         {
-            using (SqlConnection sc = new SqlConnection(cs))
+            using (SqlConnection sc = getsc())
             {
                 
                 sc.Open();
@@ -188,6 +225,9 @@ namespace MangaReader
         }
         private void UploadChapetrs_Load(object sender, EventArgs e)
         {
+            
+            DesEnb();
+            
             listBox1.Hide();
             getManga();
             
@@ -195,6 +235,8 @@ namespace MangaReader
 
         private void btn_AddChapter_Click(object sender, EventArgs e)
         {
+            isAdd = true;
+            DesEnb();
             
         }
 
@@ -208,25 +250,80 @@ namespace MangaReader
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            addChapter();
-            SqlConnection sc = new SqlConnection(cs);
-            sc.Open();
-            SqlCommand com = new SqlCommand(string.Format("select * from chapter where number ={0} and id_manga={1}", Convert.ToInt32(txtNumber.Text),Convert.ToInt32(cb_manga.SelectedValue.ToString())), sc);
-            SqlDataReader dr = com.ExecuteReader();
-            while (dr.Read())
+            if (isAdd)
             {
-                txtIdChapter.Text = dr["id_chapter"].ToString();
-                
+                addChapter();
+                SqlConnection sc = getsc();
+                sc.Open();
+                SqlCommand com = new SqlCommand(string.Format("select * from chapter where number ={0} and id_manga={1}", Convert.ToInt32(txtNumber.Text), Convert.ToInt32(cb_manga.SelectedValue.ToString())), sc);
+                SqlDataReader dr = com.ExecuteReader();
+                while (dr.Read())
+                {
+                    txtIdChapter.Text = dr["id_chapter"].ToString();
+
+                }
+
+                dr.Close();
+                sc.Close();
+                sendImg();
+                MessageBox.Show("chapter add Successfully");
+                isAdd = false;
+                DesEnb();
             }
-            
-            dr.Close();
-            sc.Close();
-            sendImg();
+            if (isMod)
+            {
+                MessageBox.Show("chapter modify Successfully ");
+                isAdd = false;
+                DesEnb();
+            }
+            if (isDel)
+            {
+                SqlConnection sc = getsc();
+                sc.Open();
+                SqlCommand com = new SqlCommand(string.Format("select * from chapter where number ={0} and id_manga={1}", Convert.ToInt32(txtNumber.Text), Convert.ToInt32(cb_manga.SelectedValue.ToString())), sc);
+                SqlDataReader dr = com.ExecuteReader();
+                while (dr.Read())
+                {
+                    txtIdChapter.Text = dr["id_chapter"].ToString();
+
+                }
+
+                dr.Close();
+                sc.Close();
+
+                if (MessageBox.Show("Are you ok about deleting this chapter ?", "DELETE CHAPTER", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    SqlConnection sc1 = getsc();
+                    sc.Open();
+                    SqlCommand com1 = new SqlCommand("delete from chapter where id_chapter =@id_chapter", sc);
+                    com1.Parameters.AddWithValue("@id_chapter", Convert.ToInt32(txtIdChapter.Text.ToString()));
+                    com1.ExecuteNonQuery();
+                    isDel = false;
+                    DesEnb();
+                }
+            }
+           
         }
 
         private void btn_images_Click(object sender, EventArgs e)
         {
             getImages();
+        }
+
+       
+
+        private void btndel_Click(object sender, EventArgs e)
+        {
+            isMod = true;
+            DesEnb();
+            isMod = false;
+        }
+
+        private void btnmod_Click(object sender, EventArgs e)
+        {
+            isDel = true;
+            DesEnb();
+            isDel = false;
         }
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)

@@ -166,6 +166,7 @@ namespace MangaReader
         private void HomeForm_Load(object sender, EventArgs e)
         {
             this.StartPosition = FormStartPosition.Manual;
+            btnList.PerformClick();
             
         }
 
